@@ -13,12 +13,17 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyD2VB_Pkq0etzxwCsT8SDvCHfMhXrP39P4"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "package":"com.tourguide.findplace",
+        "googleMapApiKey":"AIzaSyD2VB_Pkq0etzxwCsT8SDvCHfMhXrP39P4"
       }
     },
     "web": {
