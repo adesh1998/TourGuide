@@ -15,16 +15,23 @@
     "ios": {
       "supportsTablet": true,
       "config": {
-        "googleMapsApiKey": "your api key"
-      }
+        "googleMapsApiKey": "Your Api Key"
+      },
+      "bundleIdentifier": "com.package.tourguide"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff",
-        "package":"com.tourguide.findplace",
-        "googleMapApiKey":"your api key"
+        "package": "com.tourguide.findplace",
+        "config": {
+        "googleMaps": {
+          "apiKey": "Your Api Key"
+        }
       }
+
+      },
+      "package": "com.package.tourguide"
     },
     "web": {
       "bundler": "metro",
