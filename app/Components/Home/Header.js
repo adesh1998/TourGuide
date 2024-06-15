@@ -1,45 +1,42 @@
-import {StyleSheet, View, Text, Image, TextInput, Dimensions } from 'react-native'
-import React from 'react'
-import Colors from './../../Shared/Colors'
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-export default function Header() {
+const Header = () => {
+  const onChangeSearch = query => {
+    // Handle search query change
+  };
+
+
   return (
-    <View style={{display:'flex',flexDirection:'row',
-       justifyContent:'space-evenly',gap:10,
-       alignItems:'center'
-    }}>
-      <Image source={require('./../../../assets/logo.png')}
-      style={styles.logo}
-      />
-      <View>
-        <TextInput placeholder='Search'
-        style={styles.searchBar}
-        />
-      </View>
-      <Image source={require('./../../../assets/placeholder.jpg')}
-      style={styles.userImage}
+    <View style={styles.container}>
+      <GooglePlacesAutocomplete
+        placeholder="Search"
+        onPress={(data, details = null) => {
+          // 'details' is provided when fetchDetails = true
+          console.log(data, details);
+        }}
+        query={{
+          key: 'your api key',
+          language: 'en',
+        }}
+        fetchDetails={true}
       />
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-    logo:{
-        width:50,
-        height:50
-    },
-    searchBar:{
-        borderWidth:1,
-        borderColor:Colors.black,
-        padding:4,
-        borderRadius:50,
-        paddingLeft:10,
-        width:Dimensions.get('screen').width*0.6
+  container: {
+    marginTop: 20,
+    position: 'absolute',
+    top: 20,
+    left: 10,
+    right: 10,
+    zIndex: 1,
+    elevation: 2,
+  },
+});
 
-    },
-    userImage:{
-        width:50,
-        height:50,
-        borderRadius:100
-    }
-})
+export default Header;
