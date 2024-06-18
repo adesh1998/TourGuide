@@ -1,13 +1,14 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View} from 'react-native';
 import React from 'react';
-import Header from "../Components/Home/Header"
 import GoogleMapView from "../Components/Home/GoogleMapView"
+import BottomSheets from "../Components/Home/BottomSheets"
 
 export default function Home() {
   return (
     <View>
-    
+
      <GoogleMapView/>
+    
     </View>
   );
 }

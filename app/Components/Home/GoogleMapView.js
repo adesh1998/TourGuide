@@ -1,15 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View,Text, Dimensions, StyleSheet } from 'react-native';
-import MapView from 'react-native-maps';
-import { UserLocationContext } from '@/app/Context/UserLocationContext';
+import { View, Text, Dimensions, StyleSheet } from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import MapViewDirections from 'react-native-maps-directions'; // Import MapViewDirections
+import { UserLocationContext } from '../../Context/UserLocationContext';
 import Header from './Header';
-
+import { GOOGLE_MAPS_API_KEY } from '@env';
 
 const GoogleMapView = () => {
   const { width } = Dimensions.get('screen');
   const { location } = useContext(UserLocationContext);
   const [mapRegion, setMapRegion] = useState(null);
-
+  const [destination, setDestination] = useState(null);
+  const [origin, setOrigin] = useState(null); // Origin state to be set after location is fetched
   useEffect(() => {
     if (location) {
       setMapRegion({
@@ -18,32 +20,67 @@ const GoogleMapView = () => {
         latitudeDelta: 0.0322,
         longitudeDelta: 0.0421,
       });
+
+      // Set origin once location is available
+      setOrigin({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
     }
   }, [location]);
 
-  if (!mapRegion) {
+  const handlePlaceSelected = (coordinates) => {
+    // Update destination coordinates
+    setDestination(coordinates);
+  };
+
+  if (!mapRegion || !origin) {
     return <View style={styles.container}><Text>Loading map...</Text></View>;
   }
 
   return (
     <View style={styles.container}>
-  
-      <MapView 
-        style={[styles.map,  { width: width * 1, height: width * 2 }]}
+      <Header onPlaceSelected={handlePlaceSelected} />
+
+      <MapView
+        style={[styles.map, { width: width * 1, height: width * 2 }]}
         showsUserLocation={true}
         region={mapRegion}
-      />
-       <Header/>
+      >
+        {origin && (
+          <Marker
+            coordinate={origin}
+            title="Starting Point"
+          />
+        )}
+        {destination && (
+          <Marker
+            coordinate={destination}
+            title="Destination Point"
+          />
+        )}
+        {origin && destination && (
+          <MapViewDirections
+            origin={origin}
+            destination={destination}
+            apikey={GOOGLE_MAPS_API_KEY} // Replace with your Google Maps API key
+            strokeWidth={4}
+            strokeColor="red"
+            mode="DRIVING" // Specify the mode as per your requirement
+          />
+        )}
+      </MapView>
       
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex:1
+    flex: 1,
   },
-  
+
 });
 
 export default GoogleMapView;
