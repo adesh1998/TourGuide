@@ -43,7 +43,10 @@ const GoogleMapView = () => {
       <Header onPlaceSelected={handlePlaceSelected} />
 
       <MapView
-        style={[styles.map, { width: width * 1, height: width * 2 }]}
+        style={[styles.map, {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  }]}
         showsUserLocation={true}
         region={mapRegion}
       >
