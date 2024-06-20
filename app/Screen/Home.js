@@ -76,7 +76,7 @@ export default function Home() {
             />
           )}
         </MapView>
-        <BottomSheets destination={destination} />
+        <BottomSheets origin={origin} destination={destination} />
       </View>
     </GestureHandlerRootView>
   );
